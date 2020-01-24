@@ -52,9 +52,8 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: Container(
-        child: Center(
-            child: _telas[_indiceAtual]
-        ),
+        padding: EdgeInsets.all(16),
+        child: _telas[_indiceAtual],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _indiceAtual,
