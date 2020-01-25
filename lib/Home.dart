@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:youtube/CustomSearchDelegate.dart';
 import 'package:youtube/telas/Biblioteca.dart';
 import 'package:youtube/telas/EmAlta.dart';
 import 'package:youtube/telas/Inicio.dart';
@@ -32,21 +33,10 @@ class _HomeState extends State<Home> {
         width: 98, height: 22,),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.videocam),
-            onPressed: (){
-              print("Videocam");
-            },
-          ),
-          IconButton(
             icon: Icon(Icons.search),
-            onPressed: (){
-              print("Pesquisa");
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.account_circle),
-            onPressed: (){
-              print("Conta");
+            onPressed: () async {
+              String termoBusca = await showSearch(context: context, delegate: CustomSearchDelegate());
+
             },
           ),
         ],
