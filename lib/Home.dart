@@ -6,6 +6,9 @@ import 'package:youtube/telas/Inicio.dart';
 import 'package:youtube/telas/Inscricoes.dart';
 
 class Home extends StatefulWidget {
+
+  String termoBusca = "";
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -13,16 +16,17 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int _indiceAtual = 0;
-  List<Widget> _telas = [
-    Inicio(),
-    EmAlta(),
-    Inscricoes(),
-    Biblioteca(),
-  ];
-
 
   @override
   Widget build(BuildContext context) {
+
+    List<Widget> _telas = [
+      Inicio(widget.termoBusca),
+      EmAlta(),
+      Inscricoes(),
+      Biblioteca(),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -36,7 +40,9 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.search),
             onPressed: () async {
               String termoBusca = await showSearch(context: context, delegate: CustomSearchDelegate());
-
+              setState(() {
+                widget.termoBusca = termoBusca;
+              });
             },
           ),
         ],

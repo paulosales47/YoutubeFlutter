@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:youtube/API.dart';
 
 class CustomSearchDelegate extends SearchDelegate<String> {
   @override
@@ -19,7 +20,7 @@ class CustomSearchDelegate extends SearchDelegate<String> {
     return IconButton(
         icon: Icon(Icons.arrow_back),
       onPressed: (){
-        close(context, null);
+        close(context, "");
       },
       );
   }
@@ -33,7 +34,32 @@ class CustomSearchDelegate extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
 
+    if(query.isNotEmpty){
+
+      List<String> sugestoes = ["Oscar", "Terror", "Ação", "Melhores", "Piores"]
+          .where( (texto) =>
+            texto.toLowerCase().startsWith(query)
+      ).toList();
+
+      return ListView.builder(
+          itemCount: sugestoes.length,
+          itemBuilder: (context, index){
+            return ListTile(
+              title: Text(sugestoes[index]),
+              onTap: (){
+                close(context, sugestoes[index]);
+              },
+            );
+          });
+
+
+    }
+
+
     return Container();
+
+
   }
+
 
 }
