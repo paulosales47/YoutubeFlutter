@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_youtube/flutter_youtube.dart';
 import 'package:youtube/API.dart';
 import 'package:youtube/models/Video.dart';
 
@@ -19,7 +20,30 @@ class _InicioState extends State<Inicio> {
     return _api.pesquisarVideo(termoBusca);
   }
 
+  @override
+  void initState() {
+    super.initState();
+    print("1 - initState");
+  }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print("2 - didChangeDependencies");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print("4 - dispose");
+  }
+  
+  @override
+  void didUpdateWidget(Inicio oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print("didUpdateWidget");
+  }
+  
   @override
   Widget build(BuildContext context) {
 
@@ -39,8 +63,14 @@ class _InicioState extends State<Inicio> {
                   List<Video> videos = snapshot.data;
                   Video video = videos[index];
 
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: 16),
+                  return GestureDetector(
+                    onTap: () =>
+                      FlutterYoutube.playYoutubeVideoById(
+                          apiKey: CHAVE_API,
+                          videoId:video.id,
+                          fullScreen: true,
+                          autoPlay: true)
+                    ,
                     child: Column(
                       children: <Widget>[
                         Container(
@@ -53,8 +83,7 @@ class _InicioState extends State<Inicio> {
                           ),
                         ),
                         ListTile(
-                          title: Text(video.titulo),
-                          subtitle: Text(video.descricao),
+                          title: Text(video.titulo, textAlign: TextAlign.center,),
                         )
                       ],
                     ),
@@ -77,4 +106,6 @@ class _InicioState extends State<Inicio> {
     );
 
   }
+
+
 }
